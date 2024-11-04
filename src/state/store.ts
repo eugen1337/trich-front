@@ -33,3 +33,39 @@ export const useSectionsStore = create<SectionsState>()((set) => ({
   },
 }));
 
+type Thread = {
+  id_: number;
+  section: number;
+  title: string;
+  tags: string[];
+  content: {
+    text: string;
+    images: string[];
+  };
+};
+
+interface ThreadsState {
+  threads: Thread[];
+  getThreads: (id: string) => void;
+  error: boolean;
+  isLoading: boolean;
+}
+
+export const useThreadsState = create<ThreadsState>()((set) => ({
+  threads: [],
+  error: false,
+  isLoading: false,
+  //   increase: (by) => set((state) => ({ bears: state.bears + by })),
+  getThreads: async (id: string) => {
+    set({ isLoading: true });
+    try {
+      const response = await fetch(`${BASE_URL}/sections/${id}/threads`);
+      const data = await response.json();
+      console.log(data);
+
+      set({ threads: data });
+    } catch (error) {
+      set({ error: true, isLoading: false });
+    }
+  },
+}));

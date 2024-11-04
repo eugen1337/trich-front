@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Button } from "../components/Button";
 import { useSectionsStore } from "../state/store";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -89,13 +90,7 @@ const Text = styled.span<{ size: number }>`
 
 const MainPage: FC = () => {
   const { sections, isLoading, error, getSections } = useSectionsStore();
-  // const [sections, setSections] = useState<string[]>([
-  //   "Тема",
-  //   "Творчество",
-  //   "Игры",
-  //   "Японская культура",
-  //   "Мемы",
-  // ]);
+  const navigator = useNavigate();
 
   useEffect(() => {
     getSections();
@@ -122,7 +117,12 @@ const MainPage: FC = () => {
       <Border>
         <SectionsContainer>
           {sections.map((section) => (
-            <Button onClick={() => {}}>
+            <Button
+              onClick={() => {
+                navigator(`sections/${section.id}`);
+              }}
+              key={section.id + "section"}
+            >
               <Text size={24}>{section.name}</Text>
             </Button>
           ))}

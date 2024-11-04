@@ -1,12 +1,10 @@
 import styled from "styled-components";
-import { HandySvg } from "handy-svg";
-import TeamLogo from "../assets/TeamLogo.svg";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Button } from "./Button";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSectionsStore } from "../state/store";
 
 const Container = styled.div`
-  width: 100%;
-  height: 72px;
   background-color: #292a2e;
 
   padding: 16px 100px;
@@ -28,14 +26,35 @@ const Text = styled.span`
 `;
 
 const Header: FC = () => {
-  const [threadName, setThreadName] = useState<string>("Творчество");
+  const navigator = useNavigate();
+
+  const { sections } = useSectionsStore();
+  const [sectionName, setSectionName] = useState<string>("");
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (id) {
+      console.log(sections);
+
+      const section = sections.find((elem) => elem.id === +id);
+
+      console.log(section);
+      // @ts-ignore
+      setSectionName(section?.name);
+    }
+  }, []);
 
   return (
     <Container>
-      <Button onClick={() => {}}>
+      <Button
+        onClick={() => {
+          navigator("/");
+        }}
+      >
         <Text>Главная</Text>
       </Button>
-      <Text>{threadName}</Text>
+      <Text>{sectionName}</Text>
       <Button onClick={() => {}}>
         <Text>Добавить тред</Text>
       </Button>
