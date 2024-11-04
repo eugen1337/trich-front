@@ -1,14 +1,52 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import styled from "styled-components";
 import { Button } from "../components/Button";
+import { useSectionsStore } from "../state/store";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
 
+  padding: 50px;
+
   gap: 30px;
-  @media (min-width: 1000px) {
+  @media (min-width: 685px) {
     padding: 204px;
+  }
+`;
+
+const StartContainer = styled.div`
+  height: 100vh;
+
+  display: flex;
+  flex-direction: row;
+`;
+
+const StartTextContainer = styled.div`
+  backdrop-filter: blur(10px);
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+const MainText = styled.span`
+  font-family: AKONY;
+  font-size: 48px;
+  font-style: normal;
+  color: #ffffff;
+`;
+
+const Image = styled.img`
+  position: absolute;
+  top: 40px;
+  right: 120px;
+  z-index: -1;
+  height: 600px;
+  width: 726px;
+
+  @media (max-width: 1300px) {
+    display: none;
   }
 `;
 
@@ -42,32 +80,50 @@ const Border = styled.div`
   background-image: linear-gradient(to bottom, #d9d9d9 0%, transparent 100%);
 `;
 
-const Text = styled.span`
+const Text = styled.span<{ size: number }>`
   font-family: Gilroy-ExtraBold;
+  font-size: ${(props) => props.size + "px"};
   font-style: normal;
   color: #ffffff;
 `;
 
 const MainPage: FC = () => {
-  const [sections, setSections] = useState<string[]>([
-    "Тема",
-    "Творчество",
-    "Игры",
-    "Японская культура",
-    "Мемы",
-  ]);
+  const { sections, isLoading, error, getSections } = useSectionsStore();
+  // const [sections, setSections] = useState<string[]>([
+  //   "Тема",
+  //   "Творчество",
+  //   "Игры",
+  //   "Японская культура",
+  //   "Мемы",
+  // ]);
+
+  useEffect(() => {
+    getSections();
+  }, [getSections]);
 
   return (
     <Container>
+      <StartContainer>
+        <StartTextContainer>
+          <MainText>ТРИЧ</MainText>
+          <Text size={16}>
+            Платформа для анонимной обратной связи. Создавайте треды, делитесь
+            своими мыслями, идеями, работами и получайте искренние комментарии и
+            критику от других пользователей.
+          </Text>
+        </StartTextContainer>
+        <Image src="./startBg.png" alt="png" />
+      </StartContainer>
+
       <TitleContainer>
-        <Text>Темы</Text>
-        <Text>{sections.length}</Text>
+        <Text size={24}>Темы</Text>
+        <Text size={24}>{sections.length}</Text>
       </TitleContainer>
       <Border>
         <SectionsContainer>
           {sections.map((section) => (
             <Button onClick={() => {}}>
-              <Text>{section}</Text>
+              <Text size={24}>{section.name}</Text>
             </Button>
           ))}
         </SectionsContainer>

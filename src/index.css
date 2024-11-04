@@ -12,3 +12,9 @@ body {
   font-family: 'Gilroy-ExtraBold';
   src: local('Gilroy-ExtraBold'), url(./fonts/Gilroy-ExtraBold.otf) format('truetype');
 }
+
+
+@font-face {
+  font-family: 'AKONY';
+  src: local('AKONY'), url(./fonts/AKONY.otf) format('truetype');
+}
