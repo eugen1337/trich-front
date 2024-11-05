@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { Button } from "./Button";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useSectionsStore } from "../state/store";
 
 const Container = styled.div`
@@ -28,22 +28,7 @@ const Text = styled.span`
 const Header: FC = () => {
   const navigator = useNavigate();
 
-  const { sections } = useSectionsStore();
-  const [sectionName, setSectionName] = useState<string>("");
-
-  const { id } = useParams();
-
-  useEffect(() => {
-    if (id) {
-      console.log(sections);
-
-      const section = sections.find((elem) => elem.id === +id);
-
-      console.log(section);
-      // @ts-ignore
-      setSectionName(section?.name);
-    }
-  }, []);
+  const { currentSection } = useSectionsStore();
 
   return (
     <Container>
@@ -54,7 +39,7 @@ const Header: FC = () => {
       >
         <Text>Главная</Text>
       </Button>
-      <Text>{sectionName}</Text>
+      <Text>{currentSection?.name}</Text>
       <Button onClick={() => {}}>
         <Text>Добавить тред</Text>
       </Button>

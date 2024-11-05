@@ -34,17 +34,19 @@ const DateText = styled.span<{ size: number }>`
   font-family: Gilroy-Light;
   font-size: ${(props) => props.size + "px"};
   font-style: normal;
-  color: #d9d9d9;
+  color: #d9d9d97f;
 `;
 
 const DescriptionText = styled.span<{ size: number }>`
   font-family: Gilroy-Light;
   font-size: ${(props) => props.size + "px"};
   font-style: normal;
-  color: #d9d9d97f;
+  color: #d9d9d9;
 `;
 
 const Image = styled.img`
+  max-height: 500px;
+  min-height: 500px;
   height: 200px;
   width: 520px;
   border-radius: 30px;
@@ -55,9 +57,10 @@ const Image = styled.img`
 type Props = {
   title: string;
   text: string;
+  image: string;
 };
 
-const ThreadItem: FC<Props> = ({ title, text }) => {
+const ThreadItem: FC<Props> = ({ title, text, image }) => {
   return (
     <Container>
       <Text size={20}>{title}</Text>
@@ -74,7 +77,7 @@ const ThreadItem: FC<Props> = ({ title, text }) => {
       </Row>
       <DateText size={12}>23 ноября в 20:53</DateText>
       <DescriptionText size={16}>{text}</DescriptionText>
-      <Image />
+      <Image src={image} />
     </Container>
   );
 };
