@@ -110,7 +110,11 @@ const SectionPage: FC = () => {
           setModalOpen(false);
         }}
       >
-        <AddThreadModal />
+        <AddThreadModal
+          onClose={() => {
+            setModalOpen(false);
+          }}
+        />
       </Modal>
     </Container>
   );

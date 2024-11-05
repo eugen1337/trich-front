@@ -60,7 +60,7 @@ const Text = styled.span<{ size: number }>`
   color: #ffffff;
 `;
 
-const AddThreadModal: FC = () => {
+const AddThreadModal: FC<{ onClose: () => void }> = ({ onClose }) => {
   const [title, setTitle] = useState<string>("");
   const [tags, setTags] = useState<string>("");
   const [text, setText] = useState<string>("");
@@ -76,6 +76,7 @@ const AddThreadModal: FC = () => {
         tags: [tags, tags],
         content: { text, images: file ? [file] : undefined },
       });
+    onClose();
   };
 
   const onChangeFile = (event: ChangeEvent<HTMLInputElement>) => {

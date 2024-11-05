@@ -4,6 +4,9 @@ import TeamLogo from "../assets/TeamLogo.svg";
 import { FC } from "react";
 
 const Container = styled.div`
+  position: absolute;
+  bottom: 0;
+
   width: 100%;
   height: 70px;
   background-color: #212226;
